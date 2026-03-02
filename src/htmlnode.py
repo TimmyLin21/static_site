@@ -4,8 +4,10 @@ class HTMLNode:
         self.value = value
         self.children = children
         self.props = props
+
     def to_html(self):
         raise NotImplementedError()
+
     def props_to_html(self):
         if self.props is None or len(self.props.keys()) == 0:
             return ""
@@ -13,8 +15,10 @@ class HTMLNode:
         for key in self.props:
             html += f' {key}="{self.props[key]}"'
         return html
+
     def __repr__(self):
         return f"tag={self.tag} value={self.value} children={self.children} props={self.props}"
+
 
 class LeafNode(HTMLNode):
     def __init__(self, tag, value, props=None):
@@ -29,6 +33,7 @@ class LeafNode(HTMLNode):
 
     def __repr__(self):
         return f"tag={self.tag} value={self.value} props={self.props}"
+
 
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
