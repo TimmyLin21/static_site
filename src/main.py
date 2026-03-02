@@ -51,13 +51,16 @@ def copy_to(soucre, dest, basepath):
             os.mkdir(dest_path)
             print(f"Successfully created {item}")
             copy_to(source_path, dest_path, basepath)
-            generate_pages_recursive("content", "template.html", "docs", basepath)
+            generate_pages_recursive("content", "template.html", dest, basepath)
 
 
 def main():
-    basepath = sys.argv[1] or "/"
+    argvs = sys.argv
+    basepath = "/"
+    if len(argvs) > 1:
+        basepath = argvs[1]
     SOURCE_DIR = "static"
-    DES_DIR = "docs"
+    DES_DIR = "public" if basepath == "/" else "docs"
     try:
         if os.path.exists(DES_DIR):
             shutil.rmtree(DES_DIR)
